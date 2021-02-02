@@ -52,6 +52,8 @@ router.post('/', async function(req: Request, res: Response, next: Function): Pr
   try {
     const { email, password }: { email: string, password: string } = req.body
 
+    if(!email.includes('@') || email.indexOf('@') === email.length - 1 || email.indexOf('@') === 0) throw new Error('email format error')
+
     // check if user exists
     const checkIfUserExists: false | SqlSchema.UserInput[] = await getUser(email)
     if(checkIfUserExists !== false) {
